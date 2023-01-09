@@ -12,7 +12,7 @@ const scaleVariants = {
 };
 function Header() {
   return (
-    <div>
+    <div className="app__header app__flex" id="home">
       <motion.div
         whileInView={{ x: [-100, 0], opacity: [0, 1] }}
         transition={{ duration: 0.5 }}
@@ -54,7 +54,7 @@ function Header() {
       >
         {[images.flutter, images.redux, images.sass].map((circle, index) => (
           <div className="circle-cmp app_flex" key={`circle${index}`}>
-            <img src={circle} alt="circle" />
+            <img className="" src={circle} alt="circle" />
           </div>
         ))}
       </motion.div>
