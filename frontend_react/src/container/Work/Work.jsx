@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import "./Work.scss";
 
 function Work() {
-  const handleWorkFilter = (item) => {};
   const [activeFilter, setActiveFilter] = useState("All");
   const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
   const [works, setWorks] = useState([]);
@@ -23,6 +22,21 @@ function Work() {
     });
   }, []);
 
+  const handleWorkFilter = (item) => {
+    setActiveFilter(item);
+    setAnimateCard([{ y: 100, opacity: 0 }]);
+
+    setTimeout(() => {
+      setAnimateCard([{ y: 0, opacity: 1 }]);
+
+      if (item === "All") {
+        setFilterWork(works);
+      } else {
+        const filteredItems = works.filter((work) => work.tags.includes(item));
+        setFilterWork(filteredItems);
+      }
+    }, 500);
+  };
   return (
     <>
       <h2 className="head-text">
@@ -33,9 +47,9 @@ function Work() {
         {["UI/UX", "Web App", "Mobile App", "ReactJs", "All"].map(
           (item, index) => (
             <div
-              key={item}
+              key={item + index}
               onClick={() => handleWorkFilter(item)}
-              className={`app_work-filter-item app__flex p-text ${
+              className={`app__work-filter-item app__flex p-text ${
                 activeFilter === item ? "item-active" : ""
               }`}
             >
@@ -96,7 +110,7 @@ function Work() {
               </p>
 
               <div className="app__work-tag app__flex">
-                <p className="p-text">{work.tags[0]}</p>
+                <p className="p-text">{works.tags}</p>
               </div>
             </div>
           </div>
